@@ -20,8 +20,14 @@
     const navigateToFineart = () => {
       window.location.href = 'fineart.html';
     };
-    homeHero.addEventListener('click', navigateToFineart);
+    homeHero.addEventListener('click', (e) => {
+      // Don't navigate if clicking on a link or button inside hero
+      if (e.target.tagName === 'A' || e.target.tagName === 'BUTTON') return;
+      navigateToFineart();
+    });
     homeHero.addEventListener('touchend', (e) => {
+      // Don't navigate if clicking on a link or button inside hero
+      if (e.target.tagName === 'A' || e.target.tagName === 'BUTTON') return;
       e.preventDefault();
       navigateToFineart();
     });
