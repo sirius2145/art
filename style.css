@@ -290,6 +290,7 @@ img { display: block; max-width: 100%; }
   display: flex;
   align-items: center;
   gap: 16px;
+  touch-action: manipulation;
 }
 
 .lb-inner img {

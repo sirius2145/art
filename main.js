@@ -81,4 +81,34 @@
     if (e.key === 'ArrowLeft')   showPrev();
     if (e.key === 'ArrowRight')  showNext();
   });
+
+  /* ---- Touch swipe support for mobile ---- */
+  let touchStartX = 0;
+  let touchEndX = 0;
+
+  function handleSwipe() {
+    const swipeThreshold = 50; // Minimum distance to trigger swipe
+    const diff = touchStartX - touchEndX;
+
+    if (Math.abs(diff) > swipeThreshold) {
+      if (diff > 0) {
+        // Swiped left → show next
+        showNext();
+      } else {
+        // Swiped right → show previous
+        showPrev();
+      }
+    }
+  }
+
+  overlay.addEventListener('touchstart', e => {
+    touchStartX = e.changedTouches[0].screenX;
+  }, false);
+
+  overlay.addEventListener('touchend', e => {
+    touchEndX = e.changedTouches[0].screenX;
+    if (overlay.classList.contains('open')) {
+      handleSwipe();
+    }
+  }, false);
 })();
