@@ -17,8 +17,19 @@
   /* ---- Home hero click to navigate ---- */
   const homeHero = document.querySelector('.home-hero');
   if (homeHero) {
-    homeHero.addEventListener('click', () => {
+    const navigateToFineart = () => {
       window.location.href = 'fineart.html';
+    };
+    homeHero.addEventListener('click', navigateToFineart);
+    homeHero.addEventListener('touchend', (e) => {
+      e.preventDefault();
+      navigateToFineart();
+    });
+    homeHero.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        navigateToFineart();
+      }
     });
   }
 
