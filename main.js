@@ -84,14 +84,18 @@
 
   /* ---- Touch swipe support for mobile ---- */
   let touchStartX = 0;
+  let touchStartY = 0;
   let touchEndX = 0;
+  let touchEndY = 0;
 
   function handleSwipe() {
-    const swipeThreshold = 50; // Minimum distance to trigger swipe
-    const diff = touchStartX - touchEndX;
+    const swipeThreshold = 50;
+    const diffX = touchStartX - touchEndX;
+    const diffY = Math.abs(touchStartY - touchEndY);
 
-    if (Math.abs(diff) > swipeThreshold) {
-      if (diff > 0) {
+    // Only swipe if vertical movement is less than horizontal (or similar)
+    if (Math.abs(diffX) > swipeThreshold && diffX > diffY) {
+      if (diffX > 0) {
         // Swiped left → show next
         showNext();
       } else {
@@ -101,14 +105,32 @@
     }
   }
 
-  overlay.addEventListener('touchstart', e => {
-    touchStartX = e.changedTouches[0].screenX;
-  }, false);
+  overlay.addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].clientX;
+    touchStartY = e.changedTouches[0].clientY;
+  }, { passive: true });
 
-  overlay.addEventListener('touchend', e => {
-    touchEndX = e.changedTouches[0].screenX;
+  overlay.addEventListener('touchend', (e) => {
+    touchEndX = e.changedTouches[0].clientX;
+    touchEndY = e.changedTouches[0].clientY;
     if (overlay.classList.contains('open')) {
       handleSwipe();
     }
-  }, false);
+  }, { passive: true });
+
+  // Also attach to the image for better touch detection
+  document.addEventListener('touchstart', (e) => {
+    if (overlay.classList.contains('open')) {
+      touchStartX = e.changedTouches[0].clientX;
+      touchStartY = e.changedTouches[0].clientY;
+    }
+  }, { passive: true });
+
+  document.addEventListener('touchend', (e) => {
+    if (overlay.classList.contains('open')) {
+      touchEndX = e.changedTouches[0].clientX;
+      touchEndY = e.changedTouches[0].clientY;
+      handleSwipe();
+    }
+  }, { passive: true });
 })();
