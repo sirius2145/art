@@ -14,6 +14,14 @@
     mobileClose.addEventListener('click', () => mobileNav.classList.remove('open'));
   }
 
+  /* ---- Home hero click to navigate ---- */
+  const homeHero = document.querySelector('.home-hero');
+  if (homeHero) {
+    homeHero.addEventListener('click', () => {
+      window.location.href = 'fineart.html';
+    });
+  }
+
   /* ---- Lightbox ---- */
   const overlay = document.querySelector('.lb-overlay');
   if (!overlay) return;
