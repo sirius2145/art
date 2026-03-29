@@ -290,7 +290,6 @@ img { display: block; max-width: 100%; }
   display: flex;
   align-items: center;
   gap: 16px;
-  touch-action: manipulation;
 }
 
 .lb-inner img {
@@ -352,7 +351,6 @@ img { display: block; max-width: 100%; }
   min-height: 480px;
   overflow: hidden;
   background: var(--c-ink);
-  cursor: pointer;
 }
 
 .home-hero img {
@@ -438,6 +436,9 @@ img { display: block; max-width: 100%; }
 .bio-logo {
   width: 140px;
   margin-bottom: 24px;
+  aspect-ratio: auto;     
+  object-fit: contain;    
+  height: auto;
 }
 
 .bio-main h1 {
