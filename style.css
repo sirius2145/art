@@ -351,6 +351,7 @@ img { display: block; max-width: 100%; }
   min-height: 480px;
   overflow: hidden;
   background: var(--c-ink);
+  cursor: pointer;
 }
 
 .home-hero img {
